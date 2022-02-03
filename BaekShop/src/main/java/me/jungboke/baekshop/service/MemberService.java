@@ -1,6 +1,7 @@
 package me.jungboke.baekshop.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.jungboke.baekshop.domain.Member;
 import me.jungboke.baekshop.exception.ExistMemberException;
 import me.jungboke.baekshop.exception.NoMemberException;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -23,6 +25,7 @@ public class MemberService {
     public Long join(Member member) {
         //중복회원검증
         validateDuplicateMember(member);
+        log.info("중복검증완료");
         Member saveMember = memberRepository.save(member);
         return saveMember.getId();
     }
@@ -42,8 +45,8 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        Optional<Member> findMember = memberRepository.findById(member.getId());
-        if (findMember.isPresent()) {
+        List<Member> Member = memberRepository.findByName(member.getName());
+        if (!Member.isEmpty()) {
             throw new ExistMemberException("이미 존재하는 회원입니다.");
         }
     }

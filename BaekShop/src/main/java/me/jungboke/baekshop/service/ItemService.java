@@ -36,4 +36,12 @@ public class ItemService {
         }
         return findItem.get();
     }
+
+    @Transactional
+    public void updateItem(Long itemid, String name, int price, int stockQuantity) {
+        Optional<Item> findItem = itemRepository.findById(itemid);
+        findItem.get().setName(name);
+        findItem.get().setPrice(price);
+        findItem.get().setStockQuantity(stockQuantity);
+    }
 }

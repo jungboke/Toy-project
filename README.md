@@ -152,5 +152,12 @@ class MemberTest {
 13-4. jombotron-narrow.css 파일을 css폴더에 추가해줘서 화면비율맞추기
 13-5. 입력폼에서 Bean 검증을 사용하기 위해 starter-validation 의존성 추가하기
 13-6. 앱 실행후 Controller 동작을 확인하기 위해 InitDb라는 class를 생성하여 더미 데이터 생성하기
-14. 
+14. 필요한 html들 templates directory로 받아오고, 메인페이지 역할을 하는 Home.html 생성
+15. Member -> Item -> Order 순으로 Controller 제작
+15-1. Form관련해서 Entity를 직접사용하면 부가적인 정보를
+받아올수 없으므로 MemberForm같이 class를 직접 제작하여 Form으로 사용
+16. resource 폴더에 파일을 복붙해서 가져오면 파일을
+인식못하는 오류가 발생하므로 복붙후 Syncronize를 해줘야함.  
+17. domain,service,web까지 설계완료하고 추가적인 설계필요함.
+18. 
 
