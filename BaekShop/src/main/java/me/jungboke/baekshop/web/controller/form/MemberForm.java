@@ -1,4 +1,4 @@
-package me.jungboke.baekshop.controller;
+package me.jungboke.baekshop.web.controller.form;
 
 import lombok.*;
 
@@ -12,4 +12,7 @@ public class MemberForm {
     private String city;
     private String street;
     private String zipcode;
+
+    private String loginId;
+    private String password;
 }

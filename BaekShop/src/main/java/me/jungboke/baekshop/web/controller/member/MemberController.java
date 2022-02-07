@@ -1,17 +1,20 @@
-package me.jungboke.baekshop.controller;
+package me.jungboke.baekshop.web.controller.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.jungboke.baekshop.web.controller.form.MemberForm;
+import me.jungboke.baekshop.web.controller.form.MemberSaveForm;
 import me.jungboke.baekshop.domain.Address;
 import me.jungboke.baekshop.domain.Member;
-import me.jungboke.baekshop.service.MemberService;
+import me.jungboke.baekshop.service.member.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +32,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String create(@Validated @ModelAttribute("memberForm") MemberSaveForm form, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "members/createMemberForm";
@@ -37,7 +40,7 @@ public class MemberController {
 
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
-        Member member = Member.createMember(form.getName(), address);
+        Member member = Member.createMember(form.getName(), address, form.getLoginId(), form.getPassword());
         log.info("member 생성완료");
         memberService.join(member);
         return "redirect:/";
@@ -50,4 +53,5 @@ public class MemberController {
         log.info("ListMember");
         return "members/memberList";
     }
+
 }

@@ -1,4 +1,4 @@
-package me.jungboke.baekshop.service;
+package me.jungboke.baekshop.service.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +42,12 @@ public class MemberService {
             throw new NoMemberException("회원이 존재하지 않습니다.");
         }
         return findMember.get();
+    }
+
+    public Member login(String loginId, String password) {
+        return memberRepository.findByLoginId(loginId)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
     }
 
     private void validateDuplicateMember(Member member) {

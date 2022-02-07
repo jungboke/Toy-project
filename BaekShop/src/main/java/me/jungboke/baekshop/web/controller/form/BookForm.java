@@ -1,6 +1,5 @@
-package me.jungboke.baekshop.controller;
+package me.jungboke.baekshop.web.controller.form;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BookForm {
 
-    private String id;
     private String name;
-    private int price;
-    private int stockQuantity;
+    private Integer price;
+    private Integer stockQuantity;
     private String author;
     private String isbn;
 

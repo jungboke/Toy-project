@@ -1,19 +1,21 @@
-package me.jungboke.baekshop.controller;
+package me.jungboke.baekshop.web.controller.order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.jungboke.baekshop.web.controller.form.OrderForm;
 import me.jungboke.baekshop.domain.Member;
 import me.jungboke.baekshop.domain.Order;
 import me.jungboke.baekshop.domain.item.Item;
 import me.jungboke.baekshop.repository.OrderSearch;
-import me.jungboke.baekshop.service.ItemService;
-import me.jungboke.baekshop.service.MemberService;
-import me.jungboke.baekshop.service.OrderService;
+import me.jungboke.baekshop.service.item.ItemService;
+import me.jungboke.baekshop.service.member.MemberService;
+import me.jungboke.baekshop.service.order.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,7 @@ public class OrderController {
     public String createForm(Model model) {
         List<Member> members = memberService.findMembers();
         List<Item> items = itemService.findItems();
+        model.addAttribute("form", new OrderForm());
         model.addAttribute("members", members);
         model.addAttribute("items", items);
         log.info("Order 생성");
@@ -36,11 +39,17 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public String create(@RequestParam("memberId") Long memberId,
-                         @RequestParam("itemId") Long itemId,
-                         @RequestParam("count") int count) {
+    public String create(@Validated @ModelAttribute("form") OrderForm form, BindingResult bindingResult, Model model) {
 
-        orderService.order(memberId, itemId, count);
+        if (bindingResult.hasErrors()) {
+            log.info("error = {}", bindingResult);
+            List<Member> members = memberService.findMembers();
+            List<Item> items = itemService.findItems();
+            model.addAttribute("members", members);
+            model.addAttribute("items", items);
+            return "order/orderForm";
+        }
+        orderService.order(form.getMemberId(), form.getItemId(), form.getCount());
         log.info("Order 생성완료");
         return "redirect:/orders";
     }

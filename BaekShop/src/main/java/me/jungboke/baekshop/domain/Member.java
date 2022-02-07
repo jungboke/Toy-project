@@ -23,13 +23,19 @@ public class Member {
     @Embedded
     private Address address;
 
+    private String loginId;
+
+    private String password;
+
     @OneToMany(mappedBy = "member")
     private List<Order> order = new ArrayList<>();
 
-    public static Member createMember(String name, Address address) {
+    public static Member createMember(String name, Address address, String loginId, String password) {
         Member member = new Member();
         member.setName(name);
         member.setAddress(address);
+        member.setLoginId(loginId);
+        member.setPassword(password);
         return member;
     }
 }

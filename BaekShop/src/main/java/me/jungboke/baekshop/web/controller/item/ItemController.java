@@ -1,19 +1,22 @@
-package me.jungboke.baekshop.controller;
+package me.jungboke.baekshop.web.controller.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.jungboke.baekshop.web.controller.form.BookForm;
+import me.jungboke.baekshop.web.controller.form.BookSaveForm;
+import me.jungboke.baekshop.web.controller.form.BookUpdateForm;
 import me.jungboke.baekshop.domain.item.Book;
 import me.jungboke.baekshop.domain.item.Item;
-import me.jungboke.baekshop.service.ItemService;
+import me.jungboke.baekshop.service.item.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,7 +34,7 @@ public class ItemController {
     }
 
     @PostMapping("items/new")
-    public String create(@Valid BookForm bookForm, BindingResult bindingResult) {
+    public String create(@Validated @ModelAttribute("form") BookSaveForm bookForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "items/createItemForm";
         }
@@ -63,7 +66,11 @@ public class ItemController {
     }
 
     @PostMapping("/items/{itemId}/edit")
-    public String EditItem(@PathVariable("itemId") Long itemId, @ModelAttribute("form") BookForm bookForm) {
+    public String EditItem(@PathVariable("itemId") Long itemId, @Validated @ModelAttribute("form") BookUpdateForm bookForm,
+                           BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "items/updateItemForm";
+        }
         itemService.updateItem(itemId, bookForm.getName(), bookForm.getPrice(), bookForm.getStockQuantity());
         return "redirect:/items";
     }

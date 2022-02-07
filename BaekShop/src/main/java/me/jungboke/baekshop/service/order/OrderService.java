@@ -1,4 +1,4 @@
-package me.jungboke.baekshop.service;
+package me.jungboke.baekshop.service.order;
 
 import lombok.RequiredArgsConstructor;
 import me.jungboke.baekshop.domain.*;

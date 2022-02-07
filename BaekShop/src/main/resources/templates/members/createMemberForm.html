@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header"/>
 <style>
-    .fieldError {
-        border-color: #bd2130;
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
     }
 </style>
 <body>
@@ -11,26 +12,48 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
-    <form role="form" action="/members/new" th:object="${memberForm}" method="post">
+    <form action="/members/new" th:object="${memberForm}" method="post">
         <div class="form-group">
-            <label th:for="name">이름</label>
+            <label th:for="name" th:text="#{label.memberForm.name}">이름</label>
 
-            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
-                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+            <input type="text" th:field="*{name}" class="form-control" th:errorclass="field-error"
+                   placeholder="이름을 입력하세요" th:placeholder="#{memberForm.name.placeholder}">
+            <div class="field-error" th:errors="*{name}"></div>
 
         </div>
         <div class="form-group">
-            <label th:for="city">도시</label>
-            <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
+            <label th:for="loginId" th:text="#{label.memberForm.loginId}">아이디</label>
+
+            <input type="text" th:field="*{loginId}" class="form-control" th:errorclass="field-error"
+                   placeholder="이름을 입력하세요" th:placeholder="#{memberForm.loginId.placeholder}">
+            <div class="field-error" th:errors="*{loginId}"></div>
+
         </div>
         <div class="form-group">
-            <label th:for="street">거리</label>
-            <input type="text" th:field="*{street}" class="form-control" placeholder="거리를 입력하세요">
+            <label th:for="password" th:text="#{label.memberForm.password}">비밀번호</label>
+
+            <input type="password" th:field="*{password}" class="form-control" th:errorclass="field-error"
+                   placeholder="이름을 입력하세요" th:placeholder="#{memberForm.password.placeholder}">
+            <div class="field-error" th:errors="*{password}"></div>
+
         </div>
         <div class="form-group">
-            <label th:for="zipcode">우편번호</label>
-            <input type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
+            <label th:for="city" th:text="#{label.memberForm.city}">도시</label>
+            <input type="text" th:field="*{city}" class="form-control" th:errorclass="field-error"
+                   placeholder="도시를 입력하세요" th:placeholder="#{memberForm.city.placeholder}">
+            <div class="field-error" th:errors="*{city}"></div>
+        </div>
+        <div class="form-group">
+            <label th:for="street" th:text="#{label.memberForm.street}">거리</label>
+            <input type="text" th:field="*{street}" class="form-control" th:errorclass="field-error"
+                   placeholder="거리를 입력하세요" th:placeholder="#{memberForm.street.placeholder}">
+            <div class="field-error" th:errors="*{street}"></div>
+        </div>
+        <div class="form-group">
+            <label th:for="zipcode" th:text="#{label.memberForm.zipcode}">우편번호</label>
+            <input type="text" th:field="*{zipcode}" class="form-control" th:errorclass="field-error"
+                   placeholder="우편번호를 입력하세요" th:placeholder="#{memberForm.zipcode.placeholder}">
+            <div class="field-error" th:errors="*{zipcode}"></div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

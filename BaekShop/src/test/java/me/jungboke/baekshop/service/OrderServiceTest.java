@@ -6,7 +6,7 @@ import me.jungboke.baekshop.domain.Order;
 import me.jungboke.baekshop.domain.OrderStatus;
 import me.jungboke.baekshop.domain.item.Book;
 import me.jungboke.baekshop.repository.OrderRepository;
-import org.assertj.core.api.Assertions;
+import me.jungboke.baekshop.service.order.OrderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import javax.persistence.EntityManager;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -35,7 +34,7 @@ class OrderServiceTest {
     @DisplayName("상품주문")
     void 상품주문() throws Exception {
         //given
-        Member member = Member.createMember("baek", new Address("대전", "유성구", "123-123"));
+        Member member = Member.createMember("baek", new Address("대전", "유성구", "123-123"),"baek", "1111");
         em.persist(member);
         Book item = Book.createBook("JPA", 10000, 10, "james", "103");
         em.persist(item);
