@@ -159,5 +159,55 @@ class MemberTest {
 16. resource 폴더에 파일을 복붙해서 가져오면 파일을
 인식못하는 오류가 발생하므로 복붙후 Syncronize를 해줘야함.  
 17. domain,service,web까지 설계완료하고 추가적인 설계필요함.
-18. 
+18. 메시지 -> 검증 -> 오류 -> 인터셉터(로그, 인증) -> 예외처리 -> 타입컨버터 -> 파일업로드
+순으로 진행할 예정임.
+19. 메시지 진행시, File encoding 설정에서 전부 UTF-8로 설정해줘야 글씨 안깨짐.
+20. 외부설정 파일에 `spring.messages.basename=messages,errors`로 설정
+21. messages.properties 만든후, 기존 화면의 메시지들 통합 작성
+22. 검증 진행시, bean validation을 진행할 예정이며, view들에 field-error 추가해줌.
+23. 오류코드 관련해서, code+object+field를 조합해서 사용가능함.
+23-1. bean validation의 오류코드는 NotEmpty,NotNull처럼 입력됨.
+24. controller dir내에 form dir 따로 만들어서 validation에 사용할 form들 보관
+25. String은 @NotBlank, Integer는 @NotNull
+26. 에러코드는 th:errors에서 동작해서 메시지 출력
+27. view에 field-error 작성  
+````
+<style>
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+````
+28. view에서 error아닌 부분을 렌더링하기 위해 form도
+ModelAttribute로 같이 전달해줘야함.
+29. OrderForm에 bean validation적용하면서 기존에 RequestParam으로
+전달되던 값들을 bean으로 묶어주었고, 셀렉트박스에도 bean validation을
+추가로 적용하였음.
+30. 인터셉터를 구현하기 전에 LoginService(MemberService 내) 및 Member Entity에
+password,memberId를 추가해줌. View에도 password관련해서 추가해줌.
+31. Home.html에 로그인 버튼이랑 Controller에 로그인,로그아웃 메서드 추가
+32. Home화면을 비로그인, 로그인으로 분리해줌.
+33. memberController내에 Login기능을 넣을것인가?
+34. @NotNull같은 애들은 생성자로 생성할때는 동작안함
+35. LoginCOntroller의 login메서드는 @RequestParam을 통해
+기존 화면의 주소를 받을 수 있어야 로그인 후 해당 화면으로 바로
+보내줄 수 있음.
+36. 로그인 실패같이 필드에러가 아니면 ObjectError로 처리해줘야함.
+또한 해당 ObjectError는 컨트롤러에 로직을 직접 구현해야 하고, bindingResult에
+reject를 통해 직접 에러를 넣어줘야함.
+37. request.getSession을 통해 session을 받아와야 하므로,
+SessionConst class처럼 전역변수용 class를 생성함.
+38. .filter는 Optional에만 동작?
+39. typeMistach 에러코드 적어줘야함.
+40. HomeController에 ArgumentResolver사용안함.
+41. a태그나 redirect는 get방식
+42. tracking mode cookie만 설정
+43. web dir생성하고 controller dir넣어주고 intercepter dir 생성
+44. 인터셉터 구현시작(LoginCheckIntercepter, LogIntercepter)
+45. createLoginForm에서 th:action=@{~} 대신 action=~ th:action을 써주니
+redirectURL문제가 해결됨. 아마 th:action적용시 redirectURL이 없는
+/login으로 가기 때문에 th:action만 적어서 자기자신의 경로를
+받게 설정해줘서 해결된듯함.  
+46. 예외처리 시작
 
