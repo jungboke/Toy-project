@@ -210,4 +210,19 @@ redirectURL문제가 해결됨. 아마 th:action적용시 redirectURL이 없는
 /login으로 가기 때문에 th:action만 적어서 자기자신의 경로를
 받게 설정해줘서 해결된듯함.  
 46. 예외처리 시작
-
+47. templates dir에 error dir생성하고 4xx.html같은 예외페이지 생성
+48. excontroller 생성해서 예외처리 동작하는지 확인
+49. 외부설정 파일에 예외페이지에 들어가면 안되는 model정보 명시
+50. API 예외처리는 HandlerExceptionResolver를 통해 예외를 받자마자
+처리해주는 방식을 활용함. + @ExceptionHandler + @ControllerAdvice
+51. 타입컨버터랑 파일업로드는 현재 프로젝트에 필요없으므로 생략
+52. API 기능 제작 및 OSIV 처리 진행
+53. MemberAPIController 개발, DTO를 repository에서 바로 조회하는 방식 활용
+54. repository에서 DTO로 조회하는거 아니면 전부 내부에 DTO 제작
+55. repository에서 DTO로 조회시, query용 repository를 따로 만들어
+해당 repository를 contoller에서 직접 사용, 또한 해당 repository도
+순수 JPA repository만 사용, querydsl의 QueryProjection사용
+56. RequestBody는 RequestParam타입이 아니라 Body로 보내줘야함
+57. DTO할때 연관관계 Entity사용하면 join활용하는게 미흡
+58. DTO에서 ToMany관계인 연관관계 Entity는 어떻게 사용하나?
+59. 

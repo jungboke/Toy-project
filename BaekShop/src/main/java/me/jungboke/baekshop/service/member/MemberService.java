@@ -6,6 +6,7 @@ import me.jungboke.baekshop.domain.Member;
 import me.jungboke.baekshop.exception.ExistMemberException;
 import me.jungboke.baekshop.exception.NoMemberException;
 import me.jungboke.baekshop.repository.MemberRepository;
+import me.jungboke.baekshop.repository.query.member.MemberDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ public class MemberService {
     //회원전체조회
     public List<Member> findMembers() {
         return memberRepository.findAll();
+
     }
 
     //회원단일조회
@@ -56,4 +58,5 @@ public class MemberService {
             throw new ExistMemberException("이미 존재하는 회원입니다.");
         }
     }
+
 }

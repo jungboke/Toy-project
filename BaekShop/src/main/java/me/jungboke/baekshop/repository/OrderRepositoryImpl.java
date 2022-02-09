@@ -4,16 +4,15 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import me.jungboke.baekshop.domain.Order;
-import me.jungboke.baekshop.domain.OrderStatus;
-import me.jungboke.baekshop.domain.QMember;
-import me.jungboke.baekshop.domain.QOrder;
+import me.jungboke.baekshop.domain.*;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static me.jungboke.baekshop.domain.QDelivery.*;
 import static me.jungboke.baekshop.domain.QMember.*;
 import static me.jungboke.baekshop.domain.QOrder.*;
+import static me.jungboke.baekshop.domain.QOrderItem.*;
 import static org.springframework.util.StringUtils.hasText;
 import static org.springframework.util.StringUtils.isEmpty;
 
@@ -24,9 +23,11 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
 
     @Override
     public List<Order> findByOrderSearch(OrderSearch orderSearch) {
-        return queryFactory
+        return  queryFactory
                 .selectFrom(order)
-                .leftJoin(order.member, member)
+                .leftJoin(order.member, member).fetchJoin()
+                .leftJoin(order.orderItems, orderItem).fetchJoin()
+                .leftJoin(order.delivery, delivery).fetchJoin()
                 .where(
                         membernameEq(orderSearch.getMemberName()),
                         orderstatusEq(orderSearch.getOrderStatus())

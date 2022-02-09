@@ -14,5 +14,3 @@ server.servlet.session.tracking-modes=cookie
 server.error.include-exception=false
 server.error.include-stacktrace=never
 server.error.include-binding-errors=never
-
-spring.jpa.open-in-view=false

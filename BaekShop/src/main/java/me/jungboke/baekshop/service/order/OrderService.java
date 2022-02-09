@@ -70,6 +70,12 @@ public class OrderService {
 
     //주문검색
     public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findByOrderSearch(orderSearch);
+        List<Order> result = orderRepository.findByOrderSearch(orderSearch);
+        for (Order order : result) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                orderItem.getItem().getName();
+            }
+        }
+        return result;
     }
 }
