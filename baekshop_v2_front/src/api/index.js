@@ -26,13 +26,7 @@ function fetchMembers() {
 }
 
 function fetchMember(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  const headers = MakeHeader();
   const url = `${api.members}${data}`;
   return axios.get(url, { headers });
 }
