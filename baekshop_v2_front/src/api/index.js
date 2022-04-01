@@ -21,160 +21,90 @@ function MakeHeader() {
 }
 
 function fetchMembers() {
-  const headers = MakeHeader();
+  let headers = MakeHeader();
   return axios.get(api.members, { headers });
 }
 
 function fetchMember(data) {
-  const headers = MakeHeader();
+  let headers = MakeHeader();
   const url = `${api.members}${data}`;
   return axios.get(url, { headers });
 }
 
 function updateMember(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeader();
   const url = `${api.members}${"update"}`;
   return axios.put(url, JSON.stringify(data), { headers });
 }
 
 function deleteMember(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeader();
   const url = `${api.members}${"delete/"}${data}`;
   return axios.delete(url, { headers });
 }
 
 function fetchItems() {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeader();
   return axios.get(api.items, { headers });
 }
 
 function fetchItem(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   const url = `${api.items}${data}`;
   return axios.get(url, { headers });
 }
 
 function updateItem(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   const url = `${api.items}${"update"}`;
   return axios.put(url, JSON.stringify(data), { headers });
 }
 
 function deleteItem(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   const url = `${api.items}${"delete/"}${data}`;
   return axios.delete(url, { headers });
 }
 
 function fetchOrders() {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   return axios.get(api.orders, { headers });
 }
 
 function fetchOrder(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   const url = `${api.orders}${data}`;
   return axios.get(url, { headers });
 }
 
 function deleteOrder(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   const url = `${api.orders}${"cancel/"}${data}`;
   return axios.delete(url, { headers });
 }
 
 function signin(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
+  let headers = MakeHeaders();
   return axios.post(api.signin, JSON.stringify(data), { headers });
 }
 
 function postItems(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
+  let headers = MakeHeaders();
   return axios.post(api.items, JSON.stringify(data), { headers });
 }
 
 function postOrders(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
+  let headers = MakeHeaders();
   const params = {
     memberId: data.memberId,
     itemId: data.itemId,
     count: data.count,
   };
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
-  if (accessToken && accessToken != null) {
-    headers.Authorization = "Bearer " + accessToken;
-  }
   return axios.post(api.orders, null, { headers, params });
 }
 
 function signup(data) {
-  let headers = {
-    "Content-Type": "application/json",
-  };
+  let headers = MakeHeaders();
   return axios.post(api.signup, JSON.stringify(data), { headers });
 }
 
